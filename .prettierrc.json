@@ -1,0 +1,11 @@
+{
+  "singleAttributePerLine": true,
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "tailwindStylesheet": "./app/globals.css",
+  "tailwindFunctions": ["cn", "cva", "twMerge", "clsx"],
+  "tailwindAttributes": ["class", "className"],
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ]
+}
