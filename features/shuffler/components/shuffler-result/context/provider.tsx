@@ -46,7 +46,7 @@ export const ShufflerResultProvider = ({
   const stringifyResult = useCallback(() => {
     let text = "";
     result.forEach((assignments, assignee) => {
-      text += `${assignee}: ${assignments.length > 0 ? assignments.join(", ") : "-"}\n`;
+      text += `${assignee}: ${assignments.length > 0 ? assignments.join(", ") : "-"}\n\n`;
     });
     return text;
   }, [result]);
