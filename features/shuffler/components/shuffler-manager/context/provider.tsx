@@ -1,8 +1,14 @@
 "use client";
 
+import { assigneeParser, assignmentParser } from "@/features/shuffler/hooks";
 import { ShufflerType } from "@/features/shuffler/types";
-import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
+import { useQueryState } from "nuqs";
 import { ShufflerManagerContext } from "./context";
+
+const PARSER = {
+  assignees: assigneeParser,
+  assignments: assignmentParser,
+} satisfies Record<ShufflerType, unknown>;
 
 export const ShufflerManagerProvider = ({
   children,
@@ -11,10 +17,7 @@ export const ShufflerManagerProvider = ({
   children: React.ReactNode;
   type: ShufflerType;
 }) => {
-  const [query, setQuery] = useQueryState(
-    type,
-    parseAsArrayOf(parseAsString).withDefault([]),
-  );
+  const [query, setQuery] = useQueryState(type, PARSER[type]);
   return (
     <ShufflerManagerContext.Provider value={[query, setQuery]}>
       {children}
