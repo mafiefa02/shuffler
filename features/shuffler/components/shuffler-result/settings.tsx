@@ -52,41 +52,33 @@ export const ShufflerResultSettings = ({
   const [isOpen, setIsOpen] = useState(false);
   const { mode, setMode, strategy, setStrategy } = useShufflerResult();
 
-  const [shuffleMode, setShuffleMode] = useState<ShuffleMode>(mode);
-  const [shuffleStrategy, setShuffleStrategy] =
+  const [localMode, setLocalMode] = useState<ShuffleMode>(mode);
+  const [localStrategy, setLocalStrategy] =
     useState<ShuffleStrategyType>(strategy);
 
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      setIsOpen(open);
-      setShuffleMode(mode);
-      setShuffleStrategy(strategy);
-    },
-    [mode, strategy],
-  );
-
   const handleSave = useCallback(() => {
-    setMode(shuffleMode);
-    setStrategy(shuffleStrategy);
+    setMode(localMode);
+    setStrategy(localStrategy);
     setIsOpen(false);
-  }, [shuffleMode, setMode, shuffleStrategy, setStrategy]);
+  }, [localMode, localStrategy, setMode, setStrategy]);
 
   return (
     <Dialog
       open={isOpen}
-      onOpenChange={handleOpenChange}
+      onOpenChange={setIsOpen}
     >
       <DialogTrigger
         render={
           <Button
             size="icon-sm"
             variant="secondary"
-            className={cn("flex-1", className)}
+            className={cn("shrink-0", className)}
             {...props}
           />
         }
       >
         <SettingsIcon />
+        <span className="sr-only">Settings</span>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -95,59 +87,62 @@ export const ShufflerResultSettings = ({
             tune your shuffler to your likings
           </DialogDescription>
         </DialogHeader>
+
         <FieldSet>
           <Field>
             <FieldLabel>strategy</FieldLabel>
             <Select
-              value={shuffleStrategy}
-              items={STRATEGIES}
-              onValueChange={setShuffleStrategy}
+              value={localStrategy}
+              onValueChange={(val) =>
+                setLocalStrategy(val as ShuffleStrategyType)
+              }
             >
               <SelectTrigger>
                 <SelectValue placeholder="select shuffle strategies..." />
               </SelectTrigger>
               <SelectPositioner>
                 <SelectContent>
-                  {STRATEGIES.map((strategy) => (
+                  {STRATEGIES.map((s) => (
                     <SelectItem
-                      key={strategy.value}
-                      value={strategy.value}
+                      key={s.value}
+                      value={s.value}
                     >
-                      {strategy.label}
+                      {s.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </SelectPositioner>
             </Select>
           </Field>
+
           <Field>
             <FieldLabel>shuffle by</FieldLabel>
             <Select
-              value={shuffleMode}
-              items={MODES}
-              onValueChange={setShuffleMode}
+              value={localMode}
+              onValueChange={(val) => setLocalMode(val as ShuffleMode)}
             >
               <SelectTrigger>
                 <SelectValue placeholder="select shuffle mode..." />
               </SelectTrigger>
               <SelectPositioner>
                 <SelectContent>
-                  {MODES.map((mode) => (
+                  {MODES.map((m) => (
                     <SelectItem
-                      key={mode.value}
-                      value={mode.value}
+                      key={m.value}
+                      value={m.value}
                     >
-                      {mode.label}
+                      {m.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </SelectPositioner>
             </Select>
             <FieldDescription>
-              whether the shuffler should distribute by tasks or assignees
+              distribute by tasks or assignees
             </FieldDescription>
           </Field>
         </FieldSet>
+
         <DialogFooter>
           <DialogClose render={<Button variant="secondary" />}>
             cancel
