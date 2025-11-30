@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, type ButtonProps } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { SettingsIcon } from "lucide-react";
 import { useCallback, useState } from "react";
 import { ShuffleMode, ShuffleStrategyType } from "../../types";
@@ -44,7 +45,10 @@ const MODES: Items<ShuffleMode>[] = [
   { value: "by-assignee", label: "assignees" },
 ];
 
-export const ShufflerResultSettings = () => {
+export const ShufflerResultSettings = ({
+  className,
+  ...props
+}: ButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { mode, setMode, strategy, setStrategy } = useShufflerResult();
 
@@ -77,7 +81,8 @@ export const ShufflerResultSettings = () => {
           <Button
             size="icon-sm"
             variant="secondary"
-            className="flex-1"
+            className={cn("flex-1", className)}
+            {...props}
           />
         }
       >

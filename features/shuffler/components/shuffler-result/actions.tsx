@@ -22,12 +22,15 @@ export const ShufflerResultActions = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-col items-center gap-x-2 gap-y-4 xs:flex-row lg:w-auto",
+        "flex w-full items-center gap-x-2 gap-y-4 lg:w-auto",
+        hasResult ? "flex-col xs:flex-row" : "flex-row",
         className,
       )}
       {...props}
     >
-      <div className="flex w-full flex-1 items-center gap-2">
+      <div
+        className={cn("flex items-center gap-2", hasResult && "w-full flex-1")}
+      >
         <ShufflerResultSettings />
         {hasResult && (
           <>
@@ -72,8 +75,9 @@ export const ShufflerResultActions = ({
       </div>
       <>
         <Button
+          size="sm"
           variant="default"
-          className="w-full flex-1 sm:hidden"
+          className="w-full xs:flex-1 sm:hidden"
           onClick={() => shuffle("round-robin")}
         >
           <ShuffleIcon /> {hasResult ? "again" : "shuffle"}
