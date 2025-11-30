@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# shuffler;
+
+Shuffler is a web application designed to simplify the process of assigning items (tasks, responsibilities, etc.) to a group of people or categories (assignees). It features multiple shuffling strategies and generates shareable configurations directly through URL parameters, making it easy to share and reproduce specific assignments.
+
+## Features
+
+- **Dynamic Assignment Management**: Easily manage lists of assignees and the items to be assigned.
+- **Multiple Shuffling Strategies**: Choose from various algorithms to distribute items:
+  - **Round-Robin**: Distributes items sequentially among assignees.
+  - **Random**: Assigns items to assignees in a purely random fashion.
+  - **Greedy**: Aims to distribute items as evenly as possible among assignees.
+  - **Sequential**: Assigns a contiguous sequence of items to each assignee.
+- **Shareable Configurations**: All assignment configurations (assignees, items, and selected strategy) are stored in the URL query parameters, allowing for easy sharing and bookmarking of specific shuffle setups.
+
+## Technologies Used
+
+- [Next.js 14 (App Router)](https://nextjs.org/)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [nuqs](https://nuqs.r4ai.fyi/) for URL state management
+- [lucide-react](https://lucide.dev/) for icons
+- [Vitest](https://vitest.dev/) for unit testing
 
 ## Getting Started
 
-First, run the development server:
+First, install the project dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+```
+
+Then, run the development server:
+
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Running Tests
 
-## Learn More
+To run the unit tests for the project, use the following command:
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm test
+```
