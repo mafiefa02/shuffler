@@ -21,7 +21,7 @@ export const ShufflerResultMeta = ({
     >
       {Array.from(Object.entries(meta)).map(([key, values]) => (
         <p
-          className="inline-flex gap-1"
+          className="inline gap-1"
           key={key}
         >
           {key}:{" "}

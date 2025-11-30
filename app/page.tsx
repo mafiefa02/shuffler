@@ -81,7 +81,7 @@ export default function Home() {
               </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-6">
-              <ShufflerResult.Meta className="hidden flex-wrap overflow-x-auto xxs:flex lg:hidden" />
+              <ShufflerResult.Meta className="flex flex-wrap overflow-x-auto overflow-y-hidden lg:hidden" />
               <ShufflerResult.Content />
               <ShufflerResult.Meta className="hidden lg:flex" />
               <ShufflerResult.Actions className="lg:hidden" />
