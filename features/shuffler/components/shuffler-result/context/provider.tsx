@@ -8,10 +8,13 @@ import { ReactNode, useCallback, useState } from "react";
 import { ShufflerResultContext } from "./context";
 
 const STRATEGY_STORAGE_KEY = "shuffler-strategy";
-const DEFAULT_STRATEGY = "round-robin" as ShuffleStrategyType;
+const DEFAULT_STRATEGY = getLocalStorageItem(
+  STRATEGY_STORAGE_KEY,
+  "round-robin",
+) as ShuffleStrategyType;
 
 const MODE_STORAGE_KEY = "shuffler-mode";
-const DEFAULT_MODE: ShuffleMode = getLocalStorageItem(
+const DEFAULT_MODE = getLocalStorageItem(
   MODE_STORAGE_KEY,
   "by-assignee",
 ) as ShuffleMode;
