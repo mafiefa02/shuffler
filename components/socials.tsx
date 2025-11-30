@@ -1,5 +1,6 @@
 import { GithubIcon, GlobeIcon, LinkedinIcon } from "lucide-react";
-import { Button } from "./ui/button";
+import Link from "next/link";
+import { buttonVariants } from "./ui/button";
 
 const SOCIALS = [
   {
@@ -23,13 +24,14 @@ export const Socials = () => {
   return (
     <div className="flex items-center gap-1">
       {SOCIALS.map((social) => (
-        <Button
+        <Link
           key={social.href}
-          size="icon"
-          variant="ghost"
+          href={social.href}
+          target="_blank"
+          className={buttonVariants({ size: "icon", variant: "ghost" })}
         >
           {social.icon}
-        </Button>
+        </Link>
       ))}
     </div>
   );
