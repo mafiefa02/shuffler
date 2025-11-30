@@ -63,7 +63,7 @@ export default function AboutPage() {
         if you have any feedback or you want to contribute, please don&apos;t
         hesitate to
         <Link
-          href="https://afief.toscamedia.net/contact"
+          href="https://afiefabd.com"
           target="_blank"
           className={buttonVariants({
             variant: "link",
@@ -74,7 +74,7 @@ export default function AboutPage() {
         </Link>
         or visit this
         <Link
-          href="https://github.com/mafiefa02/assignment-shuffler"
+          href="https://github.com/mafiefa02/shuffler"
           target="_blank"
           className={buttonVariants({
             variant: "link",

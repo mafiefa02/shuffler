@@ -92,6 +92,7 @@ export const ShufflerResultSettings = ({
           <Field>
             <FieldLabel>strategy</FieldLabel>
             <Select
+              items={STRATEGIES}
               value={localStrategy}
               onValueChange={(val) =>
                 setLocalStrategy(val as ShuffleStrategyType)
@@ -118,6 +119,7 @@ export const ShufflerResultSettings = ({
           <Field>
             <FieldLabel>shuffle by</FieldLabel>
             <Select
+              items={MODES}
               value={localMode}
               onValueChange={(val) => setLocalMode(val as ShuffleMode)}
             >

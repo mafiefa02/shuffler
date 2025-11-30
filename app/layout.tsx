@@ -7,7 +7,7 @@ import { fontMono, fontSans } from "@/lib/styles/fonts";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export const metadata: Metadata = {
-  title: "shuffler;",
+  title: { default: "shuffler;", template: "%s | shuffler;" },
   description:
     "an app to shuffle or distribute stuff..., randomly shuffle and assign items to people or groups. Perfect for distributing tasks, chores, or topics fairly.",
 };
