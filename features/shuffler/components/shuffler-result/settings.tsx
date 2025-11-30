@@ -1,0 +1,160 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+  FieldSet,
+} from "@/components/ui/field";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectPositioner,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { SettingsIcon } from "lucide-react";
+import { useCallback, useState } from "react";
+import { ShuffleMode, ShuffleStrategyType } from "../../types";
+import { useShufflerResult } from "./context";
+
+type Items<T> = { value: T; label: string };
+
+const STRATEGIES: Items<ShuffleStrategyType>[] = [
+  { value: "round-robin", label: "round-robin" },
+  { value: "greedy", label: "greedy" },
+  { value: "random", label: "pure random" },
+  { value: "sequential", label: "sequential" },
+];
+
+const MODES: Items<ShuffleMode>[] = [
+  { value: "by-task", label: "tasks" },
+  { value: "by-assignee", label: "assignees" },
+];
+
+export const ShufflerResultSettings = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { mode, setMode, strategy, setStrategy } = useShufflerResult();
+
+  const [shuffleMode, setShuffleMode] = useState<ShuffleMode>(mode);
+  const [shuffleStrategy, setShuffleStrategy] =
+    useState<ShuffleStrategyType>(strategy);
+
+  const handleOpenChange = useCallback(
+    (open: boolean) => {
+      setIsOpen(open);
+      setShuffleMode(mode);
+      setShuffleStrategy(strategy);
+    },
+    [mode, strategy],
+  );
+
+  const handleSave = useCallback(() => {
+    setMode(shuffleMode);
+    setStrategy(shuffleStrategy);
+    setIsOpen(false);
+  }, [shuffleMode, setMode, shuffleStrategy, setStrategy]);
+
+  return (
+    <Dialog
+      open={isOpen}
+      onOpenChange={handleOpenChange}
+    >
+      <DialogTrigger
+        render={
+          <Button
+            size="icon-sm"
+            variant="secondary"
+            className="flex-1"
+          />
+        }
+      >
+        <SettingsIcon />
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>shuffler; settings</DialogTitle>
+          <DialogDescription>
+            tune your shuffler to your likings
+          </DialogDescription>
+        </DialogHeader>
+        <FieldSet>
+          <Field>
+            <FieldLabel>strategy</FieldLabel>
+            <Select
+              value={shuffleStrategy}
+              items={STRATEGIES}
+              onValueChange={setShuffleStrategy}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="select shuffle strategies..." />
+              </SelectTrigger>
+              <SelectPositioner>
+                <SelectContent>
+                  {STRATEGIES.map((strategy) => (
+                    <SelectItem
+                      key={strategy.value}
+                      value={strategy.value}
+                    >
+                      {strategy.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </SelectPositioner>
+            </Select>
+          </Field>
+          <Field>
+            <FieldLabel>shuffle by</FieldLabel>
+            <Select
+              value={shuffleMode}
+              items={MODES}
+              onValueChange={setShuffleMode}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="select shuffle mode..." />
+              </SelectTrigger>
+              <SelectPositioner>
+                <SelectContent>
+                  {MODES.map((mode) => (
+                    <SelectItem
+                      key={mode.value}
+                      value={mode.value}
+                    >
+                      {mode.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </SelectPositioner>
+            </Select>
+            <FieldDescription>
+              whether the shuffler should distribute by tasks or assignees
+            </FieldDescription>
+          </Field>
+        </FieldSet>
+        <DialogFooter>
+          <DialogClose render={<Button variant="secondary" />}>
+            cancel
+          </DialogClose>
+          <Button
+            onClick={handleSave}
+            size="sm"
+          >
+            save changes
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
